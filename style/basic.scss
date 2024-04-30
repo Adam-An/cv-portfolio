@@ -1,3 +1,5 @@
+@import "settings";
+
 /**
 *	Cvio - Resume/CV Template (HTML)
 *	Version: 1.1
@@ -26,18 +28,18 @@
 
 /* - Basic */
 html {
-	margin-right: 0 !important;
+	margin-right: 0!important;
 }
 
 body {
 	margin: 0;
 	padding: 0;
 	border: none;
-	font-family: "Roboto";
-	font-size: 16px;
-	line-height: 1.5;
-	color: #bbb;
-	background: #101010;
+	font-family: $default_font;
+	font-size: $default_size;
+	line-height: $line_height;
+	color: $default_color;
+	background: $default_bg;
 	letter-spacing: 0;
 	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
@@ -62,7 +64,7 @@ body.scroll_hidden {
 .cursor-follower {
 	margin: -13px 0 0 -13px;
 	position: absolute;
-	background: #4bffa5;
+	background: $active_color;
 	width: 26px;
 	height: 26px;
 	-webkit-transition: transform 1s cubic-bezier(0.02, 1.2, 0.8, 1), opacity 0.25s ease;
@@ -70,14 +72,11 @@ body.scroll_hidden {
 	opacity: 0.4;
 	z-index: 1111;
 	pointer-events: none;
-	border-radius: 50%;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	-khtml-border-radius: 50%;
+	@include border-radius(50%);
 }
 
 .cursor-follower.hide {
-	opacity: 0 !important;
+	opacity: 0!important;
 }
 
 @media (max-width: 1199px) {
@@ -85,6 +84,7 @@ body.scroll_hidden {
 		display: none;
 	}
 }
+
 /* - Preloader */
 .preloader {
 	position: fixed;
@@ -94,26 +94,26 @@ body.scroll_hidden {
 	bottom: 0;
 	text-align: center;
 	z-index: 11111;
-}
-.preloader .spinner {
-	position: absolute;
-	left: 50%;
-	top: 0;
-	width: 1px;
-	height: 100%;
-}
-.preloader .spinner .double-bounce1, .preloader .spinner .double-bounce2 {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-.preloader .spinner .double-bounce2 {
-	background: rgba(255, 255, 255, 0.5);
-	height: 0;
-	-webkit-animation: loading 2.0s infinite ease-in-out;
-	animation: loading 2.0s infinite ease-in-out;
+	.spinner {
+		position: absolute;
+		left: 50%;
+		top: 0;
+		width: 1px;
+		height: 100%;
+		.double-bounce1, .double-bounce2 {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+		.double-bounce2 {
+			background: rgba(255,255,255,0.5);
+			height: 0;
+			-webkit-animation: loading 2.0s infinite ease-in-out;
+			animation: loading 2.0s infinite ease-in-out;
+		}
+	}
 }
 
 /* - Container */
@@ -137,9 +137,13 @@ body.scroll_hidden {
 	font-size: 0;
 	pointer-events: none;
 	z-index: 1111;
-}
-.lines.no-lines .line-col:before {
-	opacity: 0;
+	&.no-lines {
+		.line-col {
+			&:before {
+				opacity: 0;
+			}
+		}
+	}
 }
 
 .lines .line-col {
@@ -247,11 +251,8 @@ body.scroll_hidden {
 	top: 0;
 	width: 1px;
 	height: 0%;
-	background: rgba(255, 255, 255, 0.07);
-	transition: height 1s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-moz-transition: height 1s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-webkit-transition: height 1s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-o-transition: height 1s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
+	background: $lines_color;
+	@include transition(height 1s cubic-bezier(0.165, 0.85, 0.45, 1) 0s);
 }
 
 .lines .line-col:after {
@@ -261,12 +262,9 @@ body.scroll_hidden {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background: #1E1E1E;
+	background: $extra_bg;
 	z-index: 12;
-	transition: height 1s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-moz-transition: height 1s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-webkit-transition: height 1s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-o-transition: height 1s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
+	@include transition(height 1s cubic-bezier(0.165, 0.85, 0.45, 1) 0s);
 }
 
 .lines.finish .line-col:before {
@@ -301,23 +299,23 @@ body.scroll_hidden {
 	.lines .line-col {
 		width: 33.333%;
 	}
-
 	.lines .line-col:nth-child(4),
 	.lines .line-col:nth-child(5) {
 		display: none;
 	}
 }
+
 @media (max-width: 720px) {
 	.lines .line-col {
 		width: 50%;
 	}
-
 	.lines .line-col:nth-child(3),
 	.lines .line-col:nth-child(4),
 	.lines .line-col:nth-child(5) {
 		display: none;
 	}
 }
+
 /* - Columns */
 .cols {
 	position: relative;
@@ -333,6 +331,7 @@ body.scroll_hidden {
 		width: 100%;
 	}
 }
+
 .cols .col.col-lg {
 	float: left;
 	width: 75%;
@@ -343,6 +342,7 @@ body.scroll_hidden {
 		width: 100%;
 	}
 }
+
 .cols .col.col-md {
 	float: left;
 	width: 50%;
@@ -353,6 +353,7 @@ body.scroll_hidden {
 		width: 100%;
 	}
 }
+
 .cols:after {
 	content: '';
 	display: block;
@@ -367,7 +368,7 @@ h4,
 h5,
 h6 {
 	font-weight: 700;
-	font-family: "Roboto";
+	font-family: $default_font;
 	margin: 0;
 	margin-top: 30px;
 	margin-bottom: 30px;
@@ -395,11 +396,11 @@ h5 {
 }
 
 h6 {
-	font-size: 14px;
+	font-size: $small_size;
 }
 
 p {
-	font-size: 16px;
+	font-size: $default_size;
 	padding: 0;
 	margin: 30px 0;
 }
@@ -412,67 +413,50 @@ strong {
 	h1 {
 		font-size: 24px;
 	}
-
 	h2 {
 		font-size: 20px;
 	}
-
 	h3 {
 		font-size: 18px;
 	}
-
 	h4 {
-		font-size: 16px;
+		font-size: $default_size;
 	}
-
 	h5 {
-		font-size: 14px;
+		font-size: $small_size;
 	}
-
 	h6 {
 		font-size: 13px;
 	}
-
 	p {
 		margin: 20px 0;
 	}
 }
+
 /* - Links */
 a {
-	color: #eee;
+	color: $light_color;
 	text-decoration: underline;
 	outline: none;
 }
 
 a:hover {
 	text-decoration: none;
-	color: #4bffa5;
+	color: $active_color;
 }
 
 /* Animate Button Hover */
 .ink {
 	display: block;
 	position: absolute;
-	background: #4bffa5;
-	transform: scale(0);
-	-webkit-transform: scale(0);
-	-moz-transform: scale(0);
-	-o-transform: scale(0);
-	transition: transform 2s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-moz-transition: transform 2s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-webkit-transition: transform 2s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-o-transition: transform 2s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	border-radius: 100%;
-	-moz-border-radius: 100%;
-	-webkit-border-radius: 100%;
-	-khtml-border-radius: 100%;
+	background: $active_color;
+	@include transform(scale(0));
+	@include transition(transform 2s cubic-bezier(0.165, 0.85, 0.45, 1) 0s);
+	@include border-radius(100%);
 }
 
 .ink.ink-animate {
-	transform: scale(3);
-	-webkit-transform: scale(3);
-	-moz-transform: scale(3);
-	-o-transform: scale(3);
+	@include transform(scale(3));
 }
 
 .hover-animated .circle {
@@ -486,16 +470,13 @@ a:hover {
 .bts-center {
 	text-align: center;
 }
-
 .bts-list {
 	font-size: 0px;
 }
-
 .bts-list .btn {
 	margin-right: 20px;
 	margin-top: 20px;
 }
-
 .bts-list .btn:last-child {
 	margin-right: 0px;
 }
@@ -510,17 +491,14 @@ a.btn,
 	height: 44px;
 	line-height: 40px;
 	text-align: center;
-	font-size: 16px;
-	color: #4bffa5;
+	font-size: $default_size;
+	color: $active_color;
 	font-weight: 500;
 	text-decoration: none;
 	background: none;
-	border: 2px solid #4bffa5;
+	border: 2px solid $active_color;
 	cursor: pointer;
-	transition: 1s all cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-moz-transition: 1s all cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-webkit-transition: 1s all cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
-	-o-transition: 1s all cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
+	@include transition(1s all cubic-bezier(0.165, 0.85, 0.45, 1) 0s);
 }
 
 a.btn .lnk,
@@ -534,14 +512,15 @@ a.btn .lnk,
 
 a.btn:hover,
 .btn:hover {
-	color: #101010;
+	color: $default_bg;
 }
 
 @media screen and (max-width: 720px) {
 	a.btn, .btn, .single-post-text input[type="submit"] {
-		font-size: 14px;
+		font-size: $small_size;
 	}
 }
+
 /* - Forms */
 form.post-password-form {
 	max-width: 400px;
@@ -553,33 +532,27 @@ input,
 textarea,
 button {
 	display: block;
-	font-family: "Roboto";
-	font-size: 16px;
+	font-family: $default_font;
+	font-size: $default_size;
 	height: 50px;
 	width: 100%;
-	color: #eee;
+	color: $light_color;
 	margin-bottom: 30px;
 	padding: 0;
-	background: none !important;
+	background: none!important;
 	border: none;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+	border-bottom: 1px solid $lines_color;
 	resize: none;
 	outline: 0;
-	border-radius: 0%;
-	-moz-border-radius: 0%;
-	-webkit-border-radius: 0%;
-	-khtml-border-radius: 0%;
-	transition: all 0.3s ease 0s;
-	-moz-transition: all 0.3s ease 0s;
-	-webkit-transition: all 0.3s ease 0s;
-	-o-transition: all 0.3s ease 0s;
+	@include border-radius(0%);
+	@include transition(all 0.3s ease 0s);
 }
 
 input:focus,
 textarea:focus,
 button:focus {
-	color: #eee;
-	border-bottom: 1px solid #eee;
+	color: $light_color;
+	border-bottom: 1px solid $light_color;
 }
 
 textarea {
@@ -593,20 +566,20 @@ button {
 	display: inline-block;
 	vertical-align: top;
 	text-align: left;
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid $light_color;
 	cursor: pointer;
-	color: #eee;
+	color: $light_color;
 }
 
 button:hover {
-	border-bottom: 1px solid #4bffa5;
+	border-bottom: 1px solid $active_color;
 }
 
 label,
 legend {
 	display: block;
 	padding-bottom: 10px;
-	font-family: "Roboto";
+	font-family: $default_font;
 	font-size: 13px;
 }
 
@@ -638,62 +611,62 @@ input[type="radio"] {
 
 input:focus::-webkit-input-placeholder,
 textarea:focus::-webkit-input-placeholder {
-	color: #eee;
+	color: $light_color;
 }
 
 input:focus:-moz-placeholder,
 textarea:focus:-moz-placeholder {
-	color: #eee;
+	color: $light_color;
 }
 
 input:focus::-moz-placeholder,
 textarea:focus::-moz-placeholder {
-	color: #eee;
+	color: $light_color;
 }
 
 input:focus:-ms-input-placeholder,
 textarea:focus:-ms-input-placeholder {
-	color: #eee;
+	color: $light_color;
 }
 
 input.error,
 textarea.error,
 input.wpcf7-not-valid,
 textarea.wpcf7-not-valid {
-	border-bottom: 1px solid red !important;
+	border-bottom: 1px solid $error_color !important;
 }
 
 label.error,
 .wpcf7-not-valid-tip {
-	display: none !important;
+	display: none!important;
 }
 
 input.error::-moz-placeholder,
 textarea.error::-moz-placeholder,
 input.wpcf7-not-valid::-moz-placeholder,
 textarea.wpcf7-not-valid::-moz-placeholder {
-	color: red;
+	color: $error_color;
 }
 
 input.error:-moz-placeholder,
 textarea.error:-moz-placeholder,
 input.wpcf7-not-valid:-moz-placeholder,
 textarea.wpcf7-not-valid:-moz-placeholder {
-	color: red;
+	color: $error_color;
 }
 
 input.error:-ms-input-placeholder,
 textarea.error:-ms-input-placeholder,
 input.wpcf7-not-valid:-ms-input-placeholder,
 textarea.wpcf7-not-valid:-ms-input-placeholder {
-	color: red;
+	color: $error_color;
 }
 
 input.error::-webkit-input-placeholder,
 textarea.error::-webkit-input-placeholder,
 input.wpcf7-not-valid::-webkit-input-placeholder,
 textarea.wpcf7-not-valid::-webkit-input-placeholder {
-	color: red;
+	color: $error_color;
 }
 
 div.wpcf7-response-output {
@@ -775,7 +748,7 @@ ul ul, ol ol, ul ol, ol ul {
 
 /* - Code */
 code {
-	font-family: "Roboto";
+	font-family: $default_font;
 	padding: 0 4px;
 	font-style: italic;
 	color: #999;
@@ -789,7 +762,7 @@ code {
 
 pre {
 	background: #f6f6f6;
-	font-family: "Roboto";
+	font-family: $default_font;
 	margin: 30px 0;
 	padding: 30px;
 	max-width: 100%;
@@ -798,7 +771,7 @@ pre {
 }
 
 mark, ins {
-	background: #eee;
+	background: $light_color;
 	text-decoration: none;
 }
 
@@ -814,16 +787,16 @@ table {
 table caption {
 	padding: 6px 0;
 	background: #f6f6f6;
-	font-size: 12px;
+	font-size: $extra_small_size;
 }
 
 th {
 	color: #999;
 	padding: 10px 20px;
-	font-size: 12px;
+	font-size: $extra_small_size;
 	font-weight: 700;
 	text-align: left;
-	border: 4px solid #FFF;
+	border: 4px solid $white_color;
 	text-transform: uppercase;
 }
 
@@ -832,7 +805,7 @@ th a {
 }
 
 td {
-	border: 4px solid #FFF;
+	border: 4px solid $white_color;
 	padding: 10px 20px;
 	color: #363636;
 	font-size: 13px;
@@ -950,10 +923,11 @@ dd {
 
 /* - Blockquote */
 blockquote {
-	font-family: "Roboto";
+	font-family: $default_font;
 }
 
 /* - Animations */
+
 /* preloader */
 @-webkit-keyframes loading {
 	0% {
@@ -961,12 +935,12 @@ blockquote {
 		top: 0;
 		bottom: auto;
 	}
-	50% {
+	50% { 
 		height: 100%;
 		top: 0;
 		bottom: auto;
 	}
-	51% {
+	51% { 
 		height: 100%;
 		top: 0;
 		bottom: auto;
@@ -976,24 +950,25 @@ blockquote {
 		top: auto;
 		bottom: 0;
 	}
-	100% {
+	100% { 
 		height: 0;
 		top: auto;
 		bottom: 0;
 	}
 }
+
 @keyframes loading {
 	0% {
 		height: 0;
 		top: 0;
 		bottom: auto;
 	}
-	50% {
+	50% { 
 		height: 100%;
 		top: 0;
 		bottom: auto;
 	}
-	51% {
+	51% { 
 		height: 100%;
 		top: 0;
 		bottom: auto;
@@ -1003,21 +978,25 @@ blockquote {
 		top: auto;
 		bottom: 0;
 	}
-	100% {
+	100% { 
 		height: 0;
 		top: auto;
 		bottom: 0;
 	}
 }
+
 /* Mouse Button Animations */
 @keyframes mouse-anim {
 	0% {
 		top: 0px;
 	}
+
 	50% {
 		top: 10px;
 	}
+
 	100% {
 		top: 0px;
 	}
+
 }
